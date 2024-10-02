@@ -1,20 +1,21 @@
 package vst.treevisualizer.treevisualizer.visualizer;
 
 import javafx.scene.layout.Pane;
-import vst.treevisualizer.treevisualizer.toolbar.ToolBar;
+import vst.treevisualizer.treevisualizer.toolbar.SideBar;
+import vst.treevisualizer.treevisualizer.toolbar.TopBar;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class Visualizer extends Pane {
 
-    private final ToolBar toolBar;
+    private final SideBar sideBar;
 
     private final Set<TreeNode> nodes;
 
-    public Visualizer(ToolBar toolBar) {
-        this.toolBar = toolBar;
-        setOnMousePressed(e -> toolBar.selectedToolProperty().get().apply(null, e.getX(), e.getY()));
+    public Visualizer(SideBar sideBar, TopBar topBar) {
+        this.sideBar = sideBar;
+        setOnMousePressed(e -> sideBar.selectedToolProperty().get().apply(null, e.getX(), e.getY()));
 
         nodes = new HashSet<>();
     }
@@ -24,24 +25,6 @@ public class Visualizer extends Pane {
         getChildren().add(node);
         nodes.add(node);
         node.setPos(x, y);
-
-        final Delta delta = new Delta();
-        node.setOnMousePressed(mouseEvent -> {
-            if (node.isMovable()) {
-                delta.x = node.getLayoutX() - mouseEvent.getSceneX();
-                delta.y = node.getLayoutY() - mouseEvent.getSceneY();
-            }
-        });
-        node.setOnMouseDragged(mouseEvent -> {
-            if (node.isMovable()) {
-                node.setLayoutX(mouseEvent.getSceneX() + delta.x);
-                node.setLayoutY(mouseEvent.getSceneY() + delta.y);
-            }
-        });
-    }
-
-    private static class Delta {
-        double x; double y;
     }
 
     public void deleteNode(TreeNode node) {
@@ -50,8 +33,10 @@ public class Visualizer extends Pane {
         getChildren().removeAll(node.getEdges());
     }
 
+    // TODO: improve efficiency
     public void addEdge(TreeNode node1, TreeNode node2) {
-        if (node1.equals(node2)) {
+        // make sure nodes are different and there's no existing edges between them
+        if (node1.equals(node2) || node1.getEdges().stream().anyMatch(e -> e.node1().equals(node2) || e.node2().equals(node2))) {
             return;
         }
         Edge edge = new Edge(node1, node2, this);
@@ -69,7 +54,7 @@ public class Visualizer extends Pane {
         return nodes.stream().anyMatch(n -> n.getKey() == key);
     }
 
-    public ToolBar getToolBar() {
-        return toolBar;
+    public SideBar getSideBar() {
+        return sideBar;
     }
 }

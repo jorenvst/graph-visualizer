@@ -2,21 +2,33 @@ package vst.treevisualizer;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import vst.treevisualizer.treevisualizer.TreeVisualizer;
-
-import java.io.IOException;
+import vst.treevisualizer.treevisualizer.toolbar.SideBar;
+import vst.treevisualizer.treevisualizer.toolbar.TopBar;
+import vst.treevisualizer.treevisualizer.visualizer.Visualizer;
 
 public class Main extends Application {
+
     @Override
-    public void start(Stage stage) throws IOException {
-        TreeVisualizer root = new TreeVisualizer();
+    public void start(Stage stage) {
+        BorderPane root = new BorderPane();
         Scene scene = new Scene(root,800, 600);
         stage.setTitle("Tree Visualizer");
         stage.setScene(scene);
         stage.show();
-        root.initialize();
+
+        SideBar sideBar = new SideBar();
+        TopBar topBar = new TopBar();
+        Visualizer visualizer = new Visualizer(sideBar, topBar);
+        sideBar.setVisualizer(visualizer);
+
+        root.setLeft(sideBar);
+        root.setTop(topBar);
+        root.setCenter(visualizer);
+
+        root.getStylesheets().add(getClass().getResource("/vst/style/tree-visualizer.css").toExternalForm());
     }
 
     public static void main(String[] args) {

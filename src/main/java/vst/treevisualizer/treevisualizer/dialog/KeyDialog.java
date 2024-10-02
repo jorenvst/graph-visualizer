@@ -6,44 +6,46 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
-import vst.treevisualizer.treevisualizer.TreeVisualizer;
+import javafx.stage.Window;
+import vst.treevisualizer.Main;
 
 public class KeyDialog extends Stage {
 
     private final TextField keyField;
 
-    public KeyDialog() {
+    public KeyDialog(Window source) {
         HBox root = new HBox();
         root.setSpacing(20);
         root.setAlignment(Pos.CENTER);
 
-        root.getStylesheets().add(TreeVisualizer.class.getResource("/vst/style/tree-visualizer.css").toExternalForm());
+        root.getStylesheets().add(Main.class.getResource("/vst/style/tree-visualizer.css").toExternalForm());
         root.getStyleClass().add("key-dialog");
 
         setScene(new Scene(root));
         setTitle("Node Add");
         setResizable(false);
-        setAlwaysOnTop(true);
 
         this.keyField = new TextField();
-        root.getChildren().add(keyField);
         keyField.setPromptText("node key");
         keyField.requestFocus();
         keyField.getStyleClass().add("key-field");
-
         keyField.setOnKeyReleased(e -> {
             if (e.getCode() == KeyCode.ENTER) {
                 close();
             }
         });
+        root.getChildren().add(keyField);
 
         Button submitButton = new Button();
         submitButton.setText("OK");
-        root.getChildren().add(submitButton);
         submitButton.getStyleClass().add("submit-button");
-
         submitButton.setOnAction(e -> close());
+        root.getChildren().add(submitButton);
+
+        initModality(Modality.WINDOW_MODAL);
+        initOwner(source);
     }
 
     public Integer getKey() {

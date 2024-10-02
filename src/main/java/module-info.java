@@ -7,8 +7,4 @@ module vst.treevisualizer {
 
     opens vst.treevisualizer to javafx.fxml;
     exports vst.treevisualizer;
-    exports vst.treevisualizer.old;
-    opens vst.treevisualizer.old to javafx.fxml;
-    exports vst.treevisualizer.treevisualizer;
-    opens vst.treevisualizer.treevisualizer to javafx.fxml;
 }

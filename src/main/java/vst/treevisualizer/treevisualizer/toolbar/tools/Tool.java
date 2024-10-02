@@ -1,8 +1,9 @@
-package vst.treevisualizer.treevisualizer.toolbar;
+package vst.treevisualizer.treevisualizer.toolbar.tools;
 
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
-import vst.treevisualizer.treevisualizer.TreeVisualizer;
+import vst.treevisualizer.Main;
+import vst.treevisualizer.treevisualizer.toolbar.SideBar;
 import vst.treevisualizer.treevisualizer.visualizer.TreeNode;
 
 import java.util.ArrayList;
@@ -10,11 +11,11 @@ import java.util.List;
 
 public abstract class Tool extends ToggleButton {
 
-    protected ToolBar toolBar;
+    protected SideBar sideBar;
     protected List<TreeNode> selectedNodes = new ArrayList<>();
 
     public Tool(String image) {
-        ImageView symbol = new ImageView(TreeVisualizer.class.getResource(image).toExternalForm());
+        ImageView symbol = new ImageView(Main.class.getResource(image).toExternalForm());
         symbol.setPreserveRatio(true);
         symbol.setFitWidth(40);
 
@@ -22,12 +23,12 @@ public abstract class Tool extends ToggleButton {
         getStyleClass().add("tool");
     }
 
-    public void setToolBar(ToolBar toolBar) {
-        this.toolBar = toolBar;
+    public void setSideBar(SideBar sideBar) {
+        this.sideBar = sideBar;
         selectedProperty().addListener(o -> {
             if (selectedProperty().get()) {
-                toolBar.select(this);
-            } else if (toolBar.selectedToolProperty().get().equals(this)) {
+                sideBar.select(this);
+            } else if (sideBar.selectedToolProperty().get().equals(this)) {
                 selectedProperty().set(true);
             }
         });

@@ -1,15 +1,16 @@
 package vst.treevisualizer.treevisualizer.visualizer;
 
 import javafx.scene.shape.Line;
-import vst.treevisualizer.treevisualizer.toolbar.Delete;
+import vst.treevisualizer.treevisualizer.toolbar.tools.Tools;
 
-public class Edge extends Line implements TreeObject {
+public class Edge extends Line {
 
-    private Visualizer visualizer;
+    private final TreeNode node1;
+    private final TreeNode node2;
 
     public Edge(TreeNode node1, TreeNode node2, Visualizer visualizer) {
-        this.visualizer = visualizer;
-
+        this.node1 = node1;
+        this.node2 = node2;
         node1.addEdge(this);
         node2.addEdge(this);
 
@@ -20,11 +21,18 @@ public class Edge extends Line implements TreeObject {
 
         getStyleClass().add("edge");
 
-        // TODO: improve
         setOnMouseClicked(e -> {
-            if (visualizer.getToolBar().selectedToolProperty().get() instanceof Delete) {
+        if (visualizer.getSideBar().selectedToolProperty().get().equals(Tools.DELETE.get())) {
                 visualizer.deleteEdge(this);
             }
         });
+    }
+
+    public TreeNode node1() {
+        return node1;
+    }
+
+    public TreeNode node2() {
+        return node2;
     }
 }

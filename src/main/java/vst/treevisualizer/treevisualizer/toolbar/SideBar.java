@@ -4,41 +4,51 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Pos;
 import javafx.scene.layout.VBox;
+import vst.treevisualizer.treevisualizer.toolbar.tools.Tool;
+import vst.treevisualizer.treevisualizer.toolbar.tools.Tools;
 import vst.treevisualizer.treevisualizer.visualizer.Visualizer;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class ToolBar extends VBox {
+public class SideBar extends VBox {
 
     private Visualizer visualizer;
 
-    private final List<Tool> tools;
+    private final List<Tools> tools;
     private final ObjectProperty<Tool> selectedTool;
 
-    public ToolBar(Tool... tools1) {
-        tools = new ArrayList<>();
-        tools.addAll(List.of(tools1));
-        getChildren().addAll(tools);
+    public SideBar() {
+        tools = new ArrayList<>(Arrays.stream(Tools.values()).toList());
+        getChildren().addAll(tools.stream().map(Tools::get).toList());
 
-        for (Tool tool : tools) {
-            tool.setToolBar(this);
+        for (Tools tool : tools) {
+            tool.get().setSideBar(this);
         }
         selectedTool = new SimpleObjectProperty<>();
-        select(tools.getFirst());
+        select(tools.getFirst().get());
+
+        setOnKeyReleased(e -> {
+            for (Tools tool : tools) {
+                if (e.getCode() == tool.shortcut()) {
+                    select(tool.get());
+                }
+            }
+        });
 
         setAlignment(Pos.CENTER);
         setSpacing(10);
-        getStyleClass().add("toolbar");
+        getStyleClass().add("side-bar");
     }
 
     public void select(Tool tool) {
         selectedTool.set(tool);
         tool.selectedProperty().set(true);
-        for (Tool other : tools) {
-            if (!other.equals(tool)) {
-                other.selectedProperty().set(false);
-                other.clearSelectedNodes();
+        for (Tools other : tools) {
+            if (!other.get().equals(tool)) {
+                other.get().selectedProperty().set(false);
+                other.get().clearSelectedNodes();
             }
         }
     }
@@ -53,9 +63,5 @@ public class ToolBar extends VBox {
 
     public Visualizer getVisualizer() {
         return visualizer;
-    }
-
-    public List<Tool> getTools() {
-        return tools;
     }
 }
