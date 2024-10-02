@@ -1,6 +1,5 @@
-package vst.treevisualizer.gui.tree;
+package vst.treevisualizer.treevisualizer.visualizer;
 
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -10,18 +9,23 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextBoundsType;
+import vst.treevisualizer.treevisualizer.toolbar.Move;
 
-public class TreeNode extends StackPane {
+import java.util.HashSet;
+import java.util.Set;
+
+public class TreeNode extends StackPane implements TreeObject {
 
     private final int key;
+    private final Circle circle;
 
-    private final BooleanProperty selected = new SimpleBooleanProperty(false);
+    private final BooleanProperty movable = new SimpleBooleanProperty(false);
     private final DoubleProperty centerX = new SimpleDoubleProperty();
     private final DoubleProperty centerY = new SimpleDoubleProperty();
 
-    private final Circle circle;
+    private final Set<Edge> edges = new HashSet<>();
 
-    public TreeNode(int key) {
+    public TreeNode(int key, Visualizer visualizer) {
         this.key = key;
 
         circle = new Circle(25);
@@ -32,16 +36,33 @@ public class TreeNode extends StackPane {
         text.setBoundsType(TextBoundsType.VISUAL);
         this.getChildren().add(text);
 
+        setOnMouseClicked(e -> visualizer.getToolBar().selectedToolProperty().get().apply(this, e.getX(), e.getY()));
+
         centerX.bind(layoutXProperty().add(widthProperty().divide(2)));
         centerY.bind(layoutYProperty().add(heightProperty().divide(2)));
+        // TODO: clean up
+        movable.bind(visualizer.getToolBar().selectedToolProperty().isEqualTo(visualizer.getToolBar().getTools().stream().filter(t -> t instanceof Move).toList().getFirst()));
+    }
+
+    public void addEdge(Edge edge) {
+        edges.add(edge);
+    }
+
+    public Set<Edge> getEdges() {
+        return edges;
     }
 
     public int getKey() {
         return key;
     }
 
-    public BooleanProperty selectedProperty() {
-        return selected;
+    public void setPos(double x, double y) {
+        setLayoutX(x - 25);
+        setLayoutY(y - 25);
+    }
+
+    public boolean isMovable() {
+        return movable.get();
     }
 
     public DoubleProperty centerX() {
@@ -51,5 +72,4 @@ public class TreeNode extends StackPane {
     public DoubleProperty centerY() {
         return centerY;
     }
-
 }
