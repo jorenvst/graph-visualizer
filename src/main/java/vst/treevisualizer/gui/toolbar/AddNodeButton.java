@@ -5,10 +5,10 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import vst.treevisualizer.gui.Visualizer;
 
-public class addNodeButton extends Button {
+public class AddNodeButton extends Button {
 
-    public addNodeButton(Visualizer visualizer) {
-        ImageView addNodeGraphic = new ImageView(getClass().getResource("/vst/addNodeButton/plus-icon.png").toExternalForm());
+    public AddNodeButton(Visualizer visualizer) {
+        ImageView addNodeGraphic = new ImageView(getClass().getResource("/vst/toolbar/plus-icon.png").toExternalForm());
         addNodeGraphic.setPreserveRatio(true);
         addNodeGraphic.setFitWidth(40);
 

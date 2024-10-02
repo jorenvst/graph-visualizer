@@ -6,16 +6,22 @@ import vst.treevisualizer.gui.toolbar.ToolBar;
 
 public class TreeVisualizer extends BorderPane {
 
+    private final Visualizer visualizer;
+
+    private final ToolBar toolBar;
+
     public TreeVisualizer() {
         super();
-        Visualizer visualizer = new Visualizer();
+        visualizer = new Visualizer();
+        toolBar = new ToolBar(visualizer);
+        visualizer.setToolBar(toolBar);
         ScrollPane pane = new ScrollPane(visualizer);
         pane.setStyle("-fx-background: #383838;" +
                 "-fx-background-color: #404040;");
         pane.setFitToWidth(true);
         pane.setFitToHeight(true);
         setCenter(pane);
-        setLeft(new ToolBar(visualizer));
+        setLeft(toolBar);
         setStyle("-fx-background-color: #383838;");
     }
 }

@@ -1,7 +1,5 @@
 package vst.treevisualizer.gui.toolbar;
 
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.IntegerProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -37,7 +35,7 @@ public class KeyPopUp extends Stage {
         this.keyField = new TextField();
         root.getChildren().add(keyField);
         keyField.setPromptText("node key");
-        keyField.getParent().requestFocus();
+        keyField.requestFocus();
 
         keyField.setOnKeyReleased(e -> {
             if (e.getCode() == KeyCode.ENTER) {
@@ -60,11 +58,15 @@ public class KeyPopUp extends Stage {
 
     private void submit() {
         String key = keyField.getText();
-        if (Pattern.matches("^[0-9]+$", key) && !visualizer.containsNode(Integer.parseInt(key))) {
-            visualizer.addNode(Integer.parseInt(key));
-            close();
-        } else {
-            System.out.println("invalid key");
+        try {
+            if (Pattern.matches("^[0-9]+$", key) && !visualizer.containsNode(Integer.parseInt(key))) {
+                visualizer.addNode(Integer.parseInt(key));
+                close();
+            } else {
+                System.err.println("invalid key: " + key);
+            }
+        } catch (NumberFormatException e) {
+            System.err.println(key + " is out of range");
         }
     }
 }
