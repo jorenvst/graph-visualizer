@@ -1,9 +1,14 @@
 package vst.treevisualizer.treevisualizer.visualizer;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import javafx.scene.layout.Pane;
 import vst.treevisualizer.treevisualizer.toolbar.SideBar;
 import vst.treevisualizer.treevisualizer.toolbar.TopBar;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -59,6 +64,44 @@ public class Visualizer extends Pane {
     }
 
     public void export() {
-        // TODO
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+
+            SimpleModule module = new SimpleModule();
+            module.addSerializer(TreeNode.class, new TreeNode.TreeNodeSerializer(TreeNode.class));
+            module.addSerializer(Edge.class, new Edge.EdgeSerializer(Edge.class));
+            mapper.registerModule(module);
+
+            mapper.writerWithDefaultPrettyPrinter().writeValue(new File("graph.json"), new Graph(nodes, edges));
+        } catch (IOException e) {
+            throw new RuntimeException("unable to export", e);
+        }
+    }
+
+    // TODO: extract class
+    static final class Graph {
+        Set<TreeNode> nodes;
+        Set<Edge> edges;
+
+        private Graph(Set<TreeNode> nodes, Set<Edge> edges) {
+            this.nodes = nodes;
+            this.edges = edges;
+        }
+
+        public Set<TreeNode> getNodes() {
+            return nodes;
+        }
+
+        public void setNodes(Set<TreeNode> nodes) {
+            this.nodes = nodes;
+        }
+
+        public Set<Edge> getEdges() {
+            return edges;
+        }
+
+        public void setEdges(Set<Edge> edges) {
+            this.edges = edges;
+        }
     }
 }

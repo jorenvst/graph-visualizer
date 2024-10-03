@@ -6,16 +6,15 @@ import vst.treevisualizer.treevisualizer.visualizer.Visualizer;
 
 public class FileButton extends TopMenu {
 
+    private final MenuItem exportItem;
+    private final MenuItem importItem;
+
     public FileButton() {
         setText("File");
         setAlignment(Pos.CENTER);
 
-        MenuItem importItem = new MenuItem("import");
-        MenuItem exportItem = new MenuItem("export");
-
-        exportItem.setOnAction(e -> {
-            System.out.println("export");
-        });
+        importItem = new MenuItem("import");
+        exportItem = new MenuItem("export");
 
         getItems().addAll(importItem, exportItem);
         getStyleClass().add("menu-button");
@@ -24,6 +23,6 @@ public class FileButton extends TopMenu {
     @Override
     public void setVisualizer(Visualizer visualizer) {
         super.setVisualizer(visualizer);
-        visualizer.export();
+        exportItem.setOnAction(e -> visualizer.export());
     }
 }

@@ -1,5 +1,8 @@
 package vst.treevisualizer.treevisualizer.visualizer;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -12,6 +15,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextBoundsType;
 import vst.treevisualizer.treevisualizer.toolbar.tools.Tools;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -86,5 +90,19 @@ public class TreeNode extends StackPane {
 
     public DoubleProperty centerY() {
         return centerY;
+    }
+
+    public static class TreeNodeSerializer extends StdSerializer<TreeNode> {
+
+        protected TreeNodeSerializer(Class<TreeNode> t) {
+            super(t);
+        }
+
+        @Override
+        public void serialize(TreeNode node, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+            jsonGenerator.writeStartObject();
+            jsonGenerator.writeNumberField("key", node.getKey());
+            jsonGenerator.writeEndObject();
+        }
     }
 }
