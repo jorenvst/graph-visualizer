@@ -1,4 +1,4 @@
-package vst.treevisualizer.treevisualizer.dialog;
+package vst.treevisualizer.dialog;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;

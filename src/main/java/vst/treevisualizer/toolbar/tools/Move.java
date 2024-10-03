@@ -1,7 +1,7 @@
-package vst.treevisualizer.treevisualizer.toolbar.tools;
+package vst.treevisualizer.toolbar.tools;
 
 import javafx.scene.control.Tooltip;
-import vst.treevisualizer.treevisualizer.visualizer.TreeNode;
+import vst.treevisualizer.visualizer.graph.GraphNode;
 
 public class Move extends Tool {
 
@@ -11,7 +11,7 @@ public class Move extends Tool {
     }
 
     @Override
-    public void apply(TreeNode node, double mouseX, double mouseY) {
+    public void apply(GraphNode node, double mouseX, double mouseY) {
         // implemented in TreeNode, movable property is bound to if this tool is selected
     }
 }

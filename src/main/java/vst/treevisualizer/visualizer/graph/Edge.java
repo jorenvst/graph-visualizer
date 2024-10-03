@@ -1,19 +1,25 @@
-package vst.treevisualizer.treevisualizer.visualizer;
+package vst.treevisualizer.visualizer.graph;
 
+import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import javafx.scene.shape.Line;
-import vst.treevisualizer.treevisualizer.toolbar.tools.Tools;
+import vst.treevisualizer.toolbar.tools.Tools;
+import vst.treevisualizer.visualizer.Visualizer;
 
 import java.io.IOException;
 
 public class Edge extends Line {
 
-    private final TreeNode node1;
-    private final TreeNode node2;
+    private final GraphNode node1;
+    private final GraphNode node2;
 
-    public Edge(TreeNode node1, TreeNode node2, Visualizer visualizer) {
+    public Edge(GraphNode node1, GraphNode node2, Visualizer visualizer) {
         this.node1 = node1;
         this.node2 = node2;
         node1.addEdge(this);
@@ -33,17 +39,17 @@ public class Edge extends Line {
         });
     }
 
-    public TreeNode node1() {
+    public GraphNode node1() {
         return node1;
     }
 
-    public TreeNode node2() {
+    public GraphNode node2() {
         return node2;
     }
 
     public static class EdgeSerializer extends StdSerializer<Edge> {
 
-        protected EdgeSerializer(Class<Edge> t) {
+        public EdgeSerializer(Class<Edge> t) {
             super(t);
         }
 
@@ -53,6 +59,21 @@ public class Edge extends Line {
             jsonGenerator.writeNumberField("node1", edge.node1.getKey());
             jsonGenerator.writeNumberField("node2", edge.node2.getKey());
             jsonGenerator.writeEndObject();
+        }
+    }
+
+    public static class EdgeDeserializer extends StdDeserializer<Edge> {
+
+        protected EdgeDeserializer(Class<?> vc) {
+            super(vc);
+        }
+
+        @Override
+        public Edge deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JacksonException {
+            JsonNode jsonNode = jsonParser.getCodec().readTree(jsonParser);
+
+            // return new Edge();
+            return null;
         }
     }
 }

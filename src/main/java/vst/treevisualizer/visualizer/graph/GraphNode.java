@@ -1,7 +1,12 @@
-package vst.treevisualizer.treevisualizer.visualizer;
+package vst.treevisualizer.visualizer.graph;
 
+import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -13,13 +18,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextBoundsType;
-import vst.treevisualizer.treevisualizer.toolbar.tools.Tools;
+import vst.treevisualizer.toolbar.tools.Tools;
+import vst.treevisualizer.visualizer.Visualizer;
 
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-public class TreeNode extends StackPane {
+public class GraphNode extends StackPane {
 
     private final int key;
 
@@ -29,7 +35,7 @@ public class TreeNode extends StackPane {
 
     private final Set<Edge> edges = new HashSet<>();
 
-    public TreeNode(int key, Visualizer visualizer) {
+    public GraphNode(int key, Visualizer visualizer) {
         this.key = key;
 
         Circle circle = new Circle(25);
@@ -92,17 +98,32 @@ public class TreeNode extends StackPane {
         return centerY;
     }
 
-    public static class TreeNodeSerializer extends StdSerializer<TreeNode> {
+    public static class GraphNodeSerializer extends StdSerializer<GraphNode> {
 
-        protected TreeNodeSerializer(Class<TreeNode> t) {
+        public GraphNodeSerializer(Class<GraphNode> t) {
             super(t);
         }
 
         @Override
-        public void serialize(TreeNode node, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+        public void serialize(GraphNode node, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
             jsonGenerator.writeStartObject();
             jsonGenerator.writeNumberField("key", node.getKey());
             jsonGenerator.writeEndObject();
+        }
+    }
+
+    public static class GraphNodeDeserializer extends StdDeserializer<GraphNode> {
+
+        protected GraphNodeDeserializer(Class<?> vc) {
+            super(vc);
+        }
+
+        @Override
+        public GraphNode deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JacksonException {
+            JsonNode jsonNode = jsonParser.getCodec().readTree(jsonParser);
+
+            //return new GraphNode();
+            return null;
         }
     }
 }

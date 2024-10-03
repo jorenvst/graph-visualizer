@@ -1,10 +1,10 @@
-package vst.treevisualizer.treevisualizer.toolbar.tools;
+package vst.treevisualizer.toolbar.tools;
 
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
 import vst.treevisualizer.Main;
-import vst.treevisualizer.treevisualizer.toolbar.SideBar;
-import vst.treevisualizer.treevisualizer.visualizer.TreeNode;
+import vst.treevisualizer.toolbar.SideBar;
+import vst.treevisualizer.visualizer.graph.GraphNode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
 public abstract class Tool extends ToggleButton {
 
     protected SideBar sideBar;
-    protected List<TreeNode> selectedNodes = new ArrayList<>();
+    protected List<GraphNode> selectedNodes = new ArrayList<>();
 
     public Tool(String image) {
         ImageView symbol = new ImageView(Main.class.getResource(image).toExternalForm());
@@ -38,5 +38,5 @@ public abstract class Tool extends ToggleButton {
         selectedNodes.clear();
     }
 
-    public abstract void apply(TreeNode node, double mouseX, double mouseY);
+    public abstract void apply(GraphNode node, double mouseX, double mouseY);
 }

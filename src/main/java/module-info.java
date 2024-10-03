@@ -9,6 +9,8 @@ module vst.treevisualizer {
 
     opens vst.treevisualizer to javafx.fxml;
     exports vst.treevisualizer;
-    exports vst.treevisualizer.treevisualizer.visualizer to com.fasterxml.jackson.databind;
-    opens vst.treevisualizer.treevisualizer.visualizer to com.fasterxml.jackson.databind;
+    exports vst.treevisualizer.visualizer to com.fasterxml.jackson.databind;
+    opens vst.treevisualizer.visualizer to com.fasterxml.jackson.databind;
+    exports vst.treevisualizer.visualizer.graph to com.fasterxml.jackson.databind;
+    opens vst.treevisualizer.visualizer.graph to com.fasterxml.jackson.databind;
 }

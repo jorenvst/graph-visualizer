@@ -1,7 +1,7 @@
-package vst.treevisualizer.treevisualizer.toolbar.menu;
+package vst.treevisualizer.toolbar.menu;
 
 import javafx.scene.control.MenuButton;
-import vst.treevisualizer.treevisualizer.visualizer.Visualizer;
+import vst.treevisualizer.visualizer.Visualizer;
 
 public abstract class TopMenu extends MenuButton {
 

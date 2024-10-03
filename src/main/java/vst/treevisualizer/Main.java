@@ -5,9 +5,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import vst.treevisualizer.treevisualizer.toolbar.SideBar;
-import vst.treevisualizer.treevisualizer.toolbar.TopBar;
-import vst.treevisualizer.treevisualizer.visualizer.Visualizer;
+import vst.treevisualizer.toolbar.SideBar;
+import vst.treevisualizer.toolbar.TopBar;
+import vst.treevisualizer.visualizer.Visualizer;
 
 public class Main extends Application {
 

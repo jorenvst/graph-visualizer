@@ -1,7 +1,7 @@
-package vst.treevisualizer.treevisualizer.toolbar.tools;
+package vst.treevisualizer.toolbar.tools;
 
 import javafx.scene.control.Tooltip;
-import vst.treevisualizer.treevisualizer.visualizer.TreeNode;
+import vst.treevisualizer.visualizer.graph.GraphNode;
 
 public class AddEdge extends Tool {
 
@@ -10,7 +10,7 @@ public class AddEdge extends Tool {
         setTooltip(new Tooltip("add edge"));
     }
 
-    public void apply(TreeNode node, double mouseX, double mouseY) {
+    public void apply(GraphNode node, double mouseX, double mouseY) {
         if (node == null) {
             return;
         }

@@ -1,8 +1,8 @@
-package vst.treevisualizer.treevisualizer.toolbar.tools;
+package vst.treevisualizer.toolbar.tools;
 
 import javafx.scene.control.Tooltip;
-import vst.treevisualizer.treevisualizer.dialog.KeyDialog;
-import vst.treevisualizer.treevisualizer.visualizer.TreeNode;
+import vst.treevisualizer.dialog.KeyDialog;
+import vst.treevisualizer.visualizer.graph.GraphNode;
 
 public class AddNode extends Tool {
 
@@ -11,7 +11,7 @@ public class AddNode extends Tool {
         setTooltip(new Tooltip("add node"));
     }
 
-    public void apply(TreeNode node, double mouseX, double mouseY) {
+    public void apply(GraphNode node, double mouseX, double mouseY) {
         if (node != null) {
             return;
         }
