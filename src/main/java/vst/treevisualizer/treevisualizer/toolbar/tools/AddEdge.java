@@ -1,11 +1,13 @@
 package vst.treevisualizer.treevisualizer.toolbar.tools;
 
+import javafx.scene.control.Tooltip;
 import vst.treevisualizer.treevisualizer.visualizer.TreeNode;
 
 public class AddEdge extends Tool {
 
     public AddEdge() {
         super("/vst/sidebar/line.png");
+        setTooltip(new Tooltip("add edge"));
     }
 
     public void apply(TreeNode node, double mouseX, double mouseY) {

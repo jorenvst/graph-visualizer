@@ -1,5 +1,6 @@
 package vst.treevisualizer.treevisualizer.toolbar.tools;
 
+import javafx.scene.control.Tooltip;
 import vst.treevisualizer.treevisualizer.dialog.KeyDialog;
 import vst.treevisualizer.treevisualizer.visualizer.TreeNode;
 
@@ -7,6 +8,7 @@ public class AddNode extends Tool {
 
     public AddNode() {
         super("/vst/sidebar/plus.png");
+        setTooltip(new Tooltip("add node"));
     }
 
     public void apply(TreeNode node, double mouseX, double mouseY) {
