@@ -9,6 +9,8 @@ import vst.treevisualizer.toolbar.SideBar;
 import vst.treevisualizer.toolbar.TopBar;
 import vst.treevisualizer.visualizer.Visualizer;
 
+// TODO: Ctrl-Z feature
+// TODO: panning on Visualizer
 public class Main extends Application {
 
     @Override
