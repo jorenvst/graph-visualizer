@@ -12,12 +12,14 @@ public class Visualizer extends Pane {
     private final SideBar sideBar;
 
     private final Set<TreeNode> nodes;
+    private final Set<Edge> edges;
 
     public Visualizer(SideBar sideBar, TopBar topBar) {
         this.sideBar = sideBar;
         setOnMousePressed(e -> sideBar.selectedToolProperty().get().apply(null, e.getX(), e.getY()));
 
         nodes = new HashSet<>();
+        edges = new HashSet<>();
     }
 
     public void addNode(int key, double x, double y) {
@@ -40,10 +42,8 @@ public class Visualizer extends Pane {
             return;
         }
         Edge edge = new Edge(node1, node2, this);
-        getChildren().add(edge);
-        // trick to have nodes come out on top (inefficient for large trees)
-        getChildren().removeAll(nodes);
-        getChildren().addAll(nodes);
+        getChildren().addFirst(edge);
+        edges.add(edge);
     }
 
     public void deleteEdge(Edge edge) {
@@ -56,5 +56,9 @@ public class Visualizer extends Pane {
 
     public SideBar getSideBar() {
         return sideBar;
+    }
+
+    public void export() {
+        // TODO
     }
 }

@@ -23,6 +23,7 @@ public class Main extends Application {
         TopBar topBar = new TopBar();
         Visualizer visualizer = new Visualizer(sideBar, topBar);
         sideBar.setVisualizer(visualizer);
+        topBar.setVisualizer(visualizer);
 
         root.setLeft(sideBar);
         root.setTop(topBar);
