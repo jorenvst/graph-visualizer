@@ -3,7 +3,6 @@ package vst.treevisualizer.visualizer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import javafx.scene.layout.Pane;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import vst.treevisualizer.toolbar.SideBar;
 import vst.treevisualizer.toolbar.TopBar;

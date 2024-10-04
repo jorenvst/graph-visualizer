@@ -108,6 +108,8 @@ public class GraphNode extends StackPane {
         public void serialize(GraphNode node, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
             jsonGenerator.writeStartObject();
             jsonGenerator.writeNumberField("key", node.getKey());
+            jsonGenerator.writeNumberField("x", node.centerX().get());
+            jsonGenerator.writeNumberField("y", node.centerY().get());
             jsonGenerator.writeEndObject();
         }
     }
