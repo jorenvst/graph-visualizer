@@ -1,9 +1,9 @@
-package vst.treevisualizer.toolbar.menu;
+package vst.graph_visualizer.toolbar.menu;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.MenuItem;
 import javafx.stage.FileChooser;
-import vst.treevisualizer.visualizer.Visualizer;
+import vst.graph_visualizer.visualizer.Visualizer;
 
 import java.io.File;
 

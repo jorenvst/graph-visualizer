@@ -1,8 +1,8 @@
-package vst.treevisualizer.toolbar;
+package vst.graph_visualizer.toolbar;
 
 import javafx.scene.layout.HBox;
-import vst.treevisualizer.toolbar.menu.Menus;
-import vst.treevisualizer.visualizer.Visualizer;
+import vst.graph_visualizer.toolbar.menu.Menus;
+import vst.graph_visualizer.visualizer.Visualizer;
 
 import java.util.Arrays;
 

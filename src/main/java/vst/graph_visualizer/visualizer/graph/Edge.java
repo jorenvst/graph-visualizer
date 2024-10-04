@@ -1,4 +1,4 @@
-package vst.treevisualizer.visualizer.graph;
+package vst.graph_visualizer.visualizer.graph;
 
 import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -9,8 +9,8 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import javafx.scene.shape.Line;
-import vst.treevisualizer.toolbar.tools.Tools;
-import vst.treevisualizer.visualizer.Visualizer;
+import vst.graph_visualizer.toolbar.tools.Tools;
+import vst.graph_visualizer.visualizer.Visualizer;
 
 import java.io.IOException;
 

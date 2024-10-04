@@ -1,4 +1,4 @@
-package vst.treevisualizer.toolbar.tools;
+package vst.graph_visualizer.toolbar.tools;
 
 import javafx.scene.input.KeyCode;
 

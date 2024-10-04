@@ -1,4 +1,4 @@
-package vst.treevisualizer.visualizer.graph;
+package vst.graph_visualizer.visualizer.graph;
 
 import java.util.HashSet;
 import java.util.Set;

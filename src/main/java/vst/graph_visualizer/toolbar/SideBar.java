@@ -1,12 +1,12 @@
-package vst.treevisualizer.toolbar;
+package vst.graph_visualizer.toolbar;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Pos;
 import javafx.scene.layout.VBox;
-import vst.treevisualizer.toolbar.tools.Tool;
-import vst.treevisualizer.toolbar.tools.Tools;
-import vst.treevisualizer.visualizer.Visualizer;
+import vst.graph_visualizer.toolbar.tools.Tool;
+import vst.graph_visualizer.toolbar.tools.Tools;
+import vst.graph_visualizer.visualizer.Visualizer;
 
 import java.util.ArrayList;
 import java.util.Arrays;

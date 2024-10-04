@@ -1,14 +1,14 @@
-package vst.treevisualizer.visualizer;
+package vst.graph_visualizer.visualizer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
-import vst.treevisualizer.toolbar.SideBar;
-import vst.treevisualizer.toolbar.TopBar;
-import vst.treevisualizer.visualizer.graph.Edge;
-import vst.treevisualizer.visualizer.graph.Graph;
-import vst.treevisualizer.visualizer.graph.GraphNode;
+import vst.graph_visualizer.toolbar.SideBar;
+import vst.graph_visualizer.toolbar.TopBar;
+import vst.graph_visualizer.visualizer.graph.Edge;
+import vst.graph_visualizer.visualizer.graph.Graph;
+import vst.graph_visualizer.visualizer.graph.GraphNode;
 
 import java.io.File;
 import java.io.IOException;

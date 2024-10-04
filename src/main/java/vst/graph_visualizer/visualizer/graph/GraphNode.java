@@ -1,4 +1,4 @@
-package vst.treevisualizer.visualizer.graph;
+package vst.graph_visualizer.visualizer.graph;
 
 import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -18,8 +18,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextBoundsType;
-import vst.treevisualizer.toolbar.tools.Tools;
-import vst.treevisualizer.visualizer.Visualizer;
+import vst.graph_visualizer.toolbar.tools.Tools;
+import vst.graph_visualizer.visualizer.Visualizer;
 
 import java.io.IOException;
 import java.util.HashSet;

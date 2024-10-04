@@ -7,10 +7,10 @@ module vst.treevisualizer {
     requires com.fasterxml.jackson.annotation;
     requires com.fasterxml.jackson.databind;
 
-    opens vst.treevisualizer to javafx.fxml;
-    exports vst.treevisualizer;
-    exports vst.treevisualizer.visualizer to com.fasterxml.jackson.databind;
-    opens vst.treevisualizer.visualizer to com.fasterxml.jackson.databind;
-    exports vst.treevisualizer.visualizer.graph to com.fasterxml.jackson.databind;
-    opens vst.treevisualizer.visualizer.graph to com.fasterxml.jackson.databind;
+    opens vst.graph_visualizer to javafx.fxml;
+    exports vst.graph_visualizer;
+    exports vst.graph_visualizer.visualizer to com.fasterxml.jackson.databind;
+    opens vst.graph_visualizer.visualizer to com.fasterxml.jackson.databind;
+    exports vst.graph_visualizer.visualizer.graph to com.fasterxml.jackson.databind;
+    opens vst.graph_visualizer.visualizer.graph to com.fasterxml.jackson.databind;
 }

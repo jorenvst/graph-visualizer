@@ -1,7 +1,7 @@
-package vst.treevisualizer.toolbar.tools;
+package vst.graph_visualizer.toolbar.tools;
 
 import javafx.scene.control.Tooltip;
-import vst.treevisualizer.visualizer.graph.GraphNode;
+import vst.graph_visualizer.visualizer.graph.GraphNode;
 
 public class AddEdge extends Tool {
 

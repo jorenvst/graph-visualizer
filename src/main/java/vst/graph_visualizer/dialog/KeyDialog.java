@@ -1,4 +1,4 @@
-package vst.treevisualizer.dialog;
+package vst.graph_visualizer.dialog;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -9,7 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import vst.treevisualizer.Main;
+import vst.graph_visualizer.Main;
 
 public class KeyDialog extends Stage {
 

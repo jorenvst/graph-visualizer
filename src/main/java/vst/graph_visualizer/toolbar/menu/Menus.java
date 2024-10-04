@@ -1,4 +1,4 @@
-package vst.treevisualizer.toolbar.menu;
+package vst.graph_visualizer.toolbar.menu;
 
 public enum Menus {
     FILE(new FileButton());

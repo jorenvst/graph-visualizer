@@ -1,10 +1,10 @@
-package vst.treevisualizer.toolbar.tools;
+package vst.graph_visualizer.toolbar.tools;
 
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
-import vst.treevisualizer.Main;
-import vst.treevisualizer.toolbar.SideBar;
-import vst.treevisualizer.visualizer.graph.GraphNode;
+import vst.graph_visualizer.Main;
+import vst.graph_visualizer.toolbar.SideBar;
+import vst.graph_visualizer.visualizer.graph.GraphNode;
 
 import java.util.ArrayList;
 import java.util.List;
