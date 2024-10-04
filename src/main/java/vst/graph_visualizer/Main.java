@@ -2,10 +2,12 @@ package vst.graph_visualizer;
 
 import javafx.application.Application;
 import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import vst.graph_visualizer.graph.Edge;
 import vst.graph_visualizer.graph.Graph;
@@ -24,17 +26,16 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         root = new BorderPane();
-
-        Scene scene = new Scene(root,800, 600);
-        stage.setTitle("Graph Visualizer");
-        stage.setScene(scene);
-        stage.show();
+        root.getStylesheets().add(getClass().getResource("/vst/style/tree-visualizer.css").toExternalForm());
 
         initGraph();
         initMenu();
         initToolBar();
 
-        root.getStylesheets().add(getClass().getResource("/vst/style/tree-visualizer.css").toExternalForm());
+        Scene scene = new Scene(root,800, 600);
+        stage.setTitle("Graph Visualizer");
+        stage.setScene(scene);
+        stage.show();
     }
 
     private void initGraph() {
@@ -73,7 +74,11 @@ public class Main extends Application {
         ToolBar toolBar = new ToolBar();
         toolBar.setOrientation(Orientation.VERTICAL);
         toolBar.getItems().addAll(addVertexButton, addEdgeButton, moveVertexButton, deleteButton);
-        root.setLeft(toolBar);
+
+        VBox toolBarWrapper = new VBox();
+        toolBarWrapper.setAlignment(Pos.CENTER);
+        toolBarWrapper.getChildren().add(toolBar);
+        root.setLeft(toolBarWrapper);
     }
 
     public static void main(String[] args) {
