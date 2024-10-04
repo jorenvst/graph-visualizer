@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -64,14 +65,33 @@ public class Main extends Application {
     }
 
     private void initToolBar() {
-        ToggleButton addVertexButton = new ToggleButton("vertex");
+        ImageView addVertexImage = new ImageView(getClass().getResource("/vst/sidebar/plus.png").toExternalForm());
+        addVertexImage.setPreserveRatio(true);
+        addVertexImage.setFitWidth(40);
+        ToggleButton addVertexButton = new ToggleButton();
         addVertexButton.setTooltip(new Tooltip("add vertex"));
-        ToggleButton addEdgeButton = new ToggleButton("edge");
+        addVertexButton.setGraphic(addVertexImage);
+
+        ImageView addEdgeImage = new ImageView(getClass().getResource("/vst/sidebar/line.png").toExternalForm());
+        addEdgeImage.setPreserveRatio(true);
+        addEdgeImage.setFitWidth(40);
+        ToggleButton addEdgeButton = new ToggleButton();
         addEdgeButton.setTooltip(new Tooltip("add edge"));
-        ToggleButton moveVertexButton = new ToggleButton("move");
+        addEdgeButton.setGraphic(addEdgeImage);
+
+        ImageView moveVertexImage = new ImageView(getClass().getResource("/vst/sidebar/move.png").toExternalForm());
+        moveVertexImage.setPreserveRatio(true);
+        moveVertexImage.setFitWidth(40);
+        ToggleButton moveVertexButton = new ToggleButton();
         moveVertexButton.setTooltip(new Tooltip("move vertex"));
-        ToggleButton deleteButton = new ToggleButton("delete");
+        moveVertexButton.setGraphic(moveVertexImage);
+
+        ImageView deleteImage = new ImageView(getClass().getResource("/vst/sidebar/trash.png").toExternalForm());
+        deleteImage.setPreserveRatio(true);
+        deleteImage.setFitWidth(40);
+        ToggleButton deleteButton = new ToggleButton();
         deleteButton.setTooltip(new Tooltip("delete vertex/edge"));
+        deleteButton.setGraphic(deleteImage);
 
         ToggleGroup toggleGroup = new ToggleGroup();
         toggleGroup.getToggles().addAll(addVertexButton, addEdgeButton, moveVertexButton, deleteButton);

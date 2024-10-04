@@ -17,6 +17,7 @@
     -fx-pannable: true;
     -fx-hbar-policy: never;
     -fx-vbar-policy: never;
+    -fx-background-color: -fx-dark-main;
 }
 
 .menu-button > .arrow-button {
@@ -34,6 +35,14 @@
 .tool-bar-wrapper {
     -fx-border-width: 0 5 0 0;
     -fx-border-color: -fx-dark-accent;
+}
+
+.toggle-button {
+    -fx-background-color: -fx-dark-main;
+}
+
+.toggle-button:selected {
+    -fx-background-color: -fx-dark-accent;
 }
 
 .menu-bar {
