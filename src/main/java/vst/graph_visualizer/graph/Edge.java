@@ -20,6 +20,8 @@ public class Edge extends Line {
 
         v1.addEdge(this);
         v2.addEdge(this);
+
+        getStyleClass().add("edge");
     }
 
     public Vertex getStartVertex() {

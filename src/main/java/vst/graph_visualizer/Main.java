@@ -41,11 +41,16 @@ public class Main extends Application {
     private void initGraph() {
         Graph graph = new Graph();
 
+        // test
+        Vertex v1 = new Vertex(15, 25, 25);
+        Vertex v2 = new Vertex(8, 100, 100);
+        Edge edge = new Edge(v1, v2);
+        graph.addVertex(v1);
+        graph.addVertex(v2);
+        graph.addEdge(edge);
+
         ScrollPane pane = new ScrollPane();
         pane.setContent(graph);
-        pane.setPannable(true);
-        pane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        pane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         root.setCenter(pane);
     }
 
@@ -78,6 +83,7 @@ public class Main extends Application {
         VBox toolBarWrapper = new VBox();
         toolBarWrapper.setAlignment(Pos.CENTER);
         toolBarWrapper.getChildren().add(toolBar);
+        toolBarWrapper.getStyleClass().add("tool-bar-wrapper");
         root.setLeft(toolBarWrapper);
     }
 
