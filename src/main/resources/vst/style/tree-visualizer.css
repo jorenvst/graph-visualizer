@@ -57,6 +57,10 @@
     -fx-background-color: -fx-blue;
 }
 
+.menu-button:showing {
+    -fx-background-color: -fx-blue;
+}
+
 .menu-item .label {
     -fx-text-fill: white;
 }
