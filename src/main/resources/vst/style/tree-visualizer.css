@@ -14,10 +14,9 @@
 }
 
 .scroll-pane {
-    -fx-pannable: true;
     -fx-hbar-policy: never;
     -fx-vbar-policy: never;
-    -fx-background-color: -fx-dark-main;
+    -fx-background-color: transparent;
 }
 
 .menu-button > .arrow-button {

@@ -13,11 +13,24 @@ public class Coordinate {
         this.y = new SimpleDoubleProperty(y);
     }
 
-    public DoubleProperty x() {
+    public double x() {
+        return x.get();
+    }
+
+    public double y() {
+        return y.get();
+    }
+
+    public DoubleProperty xProperty() {
         return x;
     }
 
-    public DoubleProperty y() {
+    public DoubleProperty yProperty() {
         return y;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + x.get() + ", " + y.get() + ")";
     }
 }

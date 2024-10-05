@@ -1,19 +1,32 @@
 package vst.graph_visualizer.graph;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import javafx.collections.SetChangeListener;
 import javafx.collections.SetChangeListener.Change;
 import javafx.scene.layout.Pane;
 
+// 10.000 vertices max for decent performance (dragging is slow)
+// vertices/edges get added instantaneously
 public class Graph extends Pane {
 
     private final ObservableSet<Vertex> vertices;
     private final ObservableSet<Edge> edges;
 
+    private final ObservableList<Vertex> selectedVertices;
+
+    private final BooleanProperty movable;
+
     public Graph() {
         this.vertices = FXCollections.observableSet();
         this.edges = FXCollections.observableSet();
+
+        this.selectedVertices = FXCollections.observableArrayList();
+
+        this.movable = new SimpleBooleanProperty(false);
 
         vertices.addListener((SetChangeListener<? super Vertex>) this::updateVertices);
         edges.addListener((SetChangeListener<? super Edge>) this::updateEdges);
@@ -24,6 +37,7 @@ public class Graph extends Pane {
         if (change.wasAdded()) {
             vertex = change.getElementAdded();
             this.getChildren().add(vertex);
+            vertex.movableProperty().bind(movableProperty());
         } else if (change.wasRemoved()) {
             vertex = change.getElementRemoved();
             this.getChildren().remove(vertex);
@@ -39,8 +53,8 @@ public class Graph extends Pane {
         } else if (change.wasRemoved()) {
             edge = change.getElementRemoved();
             this.getChildren().remove(edge);
-            edge.getStartVertex().removeEdge(edge);
-            edge.getEndVertex().removeEdge(edge);
+            edge.v1().removeEdge(edge);
+            edge.v2().removeEdge(edge);
         }
     }
 
@@ -50,6 +64,24 @@ public class Graph extends Pane {
 
     public ObservableSet<Edge> getEdges() {
         return edges;
+    }
+
+    public void addComponent(GraphComponent component) {
+        // TODO: improve object-oriented
+        if (component instanceof Vertex v) {
+            vertices.add(v);
+        } else if (component instanceof Edge e) {
+            edges.add(e);
+        }
+    }
+
+    public void removeComponent(GraphComponent component) {
+        // TODO: improve object-oriented
+        if (component instanceof Vertex v) {
+            vertices.remove(v);
+        } else if (component instanceof Edge e) {
+            edges.remove(e);
+        }
     }
 
     public void addVertex(Vertex vertex) {
@@ -66,5 +98,33 @@ public class Graph extends Pane {
 
     public void removeEdge(Edge edge) {
         edges.remove(edge);
+    }
+
+    public ObservableList<Vertex> getSelectedVertices() {
+        return selectedVertices;
+    }
+
+    public void selectVertex(Vertex v) {
+        selectedVertices.add(v);
+    }
+
+    public void deselectVertex(Vertex v) {
+        selectedVertices.remove(v);
+    }
+
+    public Vertex getSelectedVertex(int i) {
+        return selectedVertices.get(i);
+    }
+
+    public boolean isMovable() {
+        return movable.get();
+    }
+
+    public BooleanProperty movableProperty() {
+        return movable;
+    }
+
+    public void setMovable(boolean movable) {
+        this.movable.set(movable);
     }
 }

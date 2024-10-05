@@ -3,27 +3,20 @@ package vst.graph_visualizer.tools;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
+import vst.graph_visualizer.graph.Coordinate;
+import vst.graph_visualizer.graph.Graph;
+import vst.graph_visualizer.graph.GraphComponent;
 
-public enum Tool {
+public abstract class Tool extends ToggleButton {
 
-    ADD_VERTEX("/vst/sidebar/plus.png", "add vertex"),
-    ADD_EDGE("/vst/sidebar/line.png", "add edge"),
-    MOVE("/vst/sidebar/move.png", "move vertex"),
-    DELETE("/vst/sidebar/trash.png", "delete vertex/edge");
-
-    private final ToggleButton button;
-
-    Tool(String image, String tooltip) {
+    public Tool(String image, String tooltip) {
         ImageView imageView = new ImageView(getClass().getResource(image).toExternalForm());
         imageView.setPreserveRatio(true);
-        imageView.setFitWidth(40);
+        imageView.setFitWidth(25);
 
-        button = new ToggleButton();
-        button.setTooltip(new Tooltip(tooltip));
-        button.setGraphic(imageView);
+        setTooltip(new Tooltip(tooltip));
+        setGraphic(imageView);
     }
 
-    public ToggleButton get() {
-        return button;
-    }
+    public abstract void apply(Graph graph, GraphComponent component, Coordinate pos);
 }
