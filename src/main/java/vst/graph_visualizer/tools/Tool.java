@@ -7,10 +7,12 @@ import vst.graph_visualizer.graph.Coordinate;
 import vst.graph_visualizer.graph.Graph;
 import vst.graph_visualizer.graph.GraphComponent;
 
+import java.util.Objects;
+
 public abstract class Tool extends ToggleButton {
 
     public Tool(String image, String tooltip) {
-        ImageView imageView = new ImageView(getClass().getResource(image).toExternalForm());
+        ImageView imageView = new ImageView(Objects.requireNonNull(getClass().getResource(image)).toExternalForm());
         imageView.setPreserveRatio(true);
         imageView.setFitWidth(25);
 

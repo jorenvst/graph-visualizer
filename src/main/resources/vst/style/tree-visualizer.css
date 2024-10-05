@@ -76,3 +76,12 @@
     -fx-stroke-width: 8;
     -fx-stroke: -fx-blue;
 }
+
+.key-dialog {
+    -fx-padding: 10;
+}
+
+.submit-button {
+    -fx-background-color: -fx-blue;
+    -fx-text-fill: white;
+}
