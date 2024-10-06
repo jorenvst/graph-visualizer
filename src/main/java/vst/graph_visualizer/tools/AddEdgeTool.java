@@ -1,21 +1,40 @@
 package vst.graph_visualizer.tools;
 
+import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
-import vst.graph_visualizer.graph.*;
+import vst.graph_visualizer.graph.Edge;
+import vst.graph_visualizer.graph.Graph;
+import vst.graph_visualizer.graph.Vertex;
 
 public class AddEdgeTool extends Tool {
 
     public AddEdgeTool() {
         super("/vst/sidebar/line.png", "add edge");
         events.put(MouseEvent.MOUSE_CLICKED, g -> c -> p -> onClick(g, c));
+        events.put(MouseEvent.MOUSE_ENTERED, g -> c -> p -> onEnter(c));
+        events.put(MouseEvent.MOUSE_EXITED, g -> c -> p -> onExit(c));
     }
 
-    private void onClick(Graph graph, GraphComponent component) {
-        if (component == null || component instanceof Edge) {
+    private void onEnter(Node source) {
+        if (!(source instanceof Vertex v)) {
+            return;
+        }
+        v.setCursor(Cursor.HAND);
+    }
+
+    private void onExit(Node source) {
+        if (!(source instanceof Vertex v)) {
+            return;
+        }
+        v.setCursor(Cursor.DEFAULT);
+    }
+
+    private void onClick(Graph graph, Node source) {
+        if (!(source instanceof Vertex v)) {
             return;
         }
 
-        Vertex v = (Vertex)component;
         if (graph.getSelectedVertices().contains(v)) {
             graph.deselectVertex(v);
         } else {

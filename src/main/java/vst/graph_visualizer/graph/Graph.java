@@ -63,24 +63,6 @@ public class Graph extends Pane {
         return edges;
     }
 
-    public void addComponent(GraphComponent component) {
-        // TODO: improve object-oriented
-        if (component instanceof Vertex v) {
-            vertices.add(v);
-        } else if (component instanceof Edge e) {
-            edges.add(e);
-        }
-    }
-
-    public void removeComponent(GraphComponent component) {
-        // TODO: improve object-oriented
-        if (component instanceof Vertex v) {
-            vertices.remove(v);
-        } else if (component instanceof Edge e) {
-            edges.remove(e);
-        }
-    }
-
     public void addVertex(Vertex vertex) {
         vertices.add(vertex);
     }

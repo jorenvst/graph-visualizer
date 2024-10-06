@@ -1,6 +1,7 @@
 package vst.graph_visualizer.tools;
 
 import javafx.event.EventType;
+import javafx.scene.Node;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
@@ -18,7 +19,7 @@ import java.util.function.Function;
 public abstract class Tool extends ToggleButton {
 
     // currying to handle parameters
-    protected final Map<EventType<MouseEvent>, Function<Graph, Function<GraphComponent, Consumer<Coordinate>>>> events;
+    protected final Map<EventType<MouseEvent>, Function<Graph, Function<Node, Consumer<Coordinate>>>> events;
 
     public Tool(String image, String tooltip) {
         ImageView imageView = new ImageView(Objects.requireNonNull(getClass().getResource(image)).toExternalForm());
@@ -31,10 +32,10 @@ public abstract class Tool extends ToggleButton {
         events = new HashMap<>();
     }
 
-    public void apply(MouseEvent event, Graph graph, GraphComponent component, Coordinate pos) {
-        Function<Graph, Function<GraphComponent, Consumer<Coordinate>>> func = events.get(event.getEventType());
+    public void apply(MouseEvent event, Graph graph, Node source, Coordinate pos) {
+        Function<Graph, Function<Node, Consumer<Coordinate>>> func = events.get(event.getEventType());
         if (func != null) {
-            func.apply(graph).apply(component).accept(pos);
+            func.apply(graph).apply(source).accept(pos);
         }
     }
 }

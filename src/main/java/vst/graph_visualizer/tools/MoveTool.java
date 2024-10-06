@@ -1,9 +1,9 @@
 package vst.graph_visualizer.tools;
 
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import vst.graph_visualizer.graph.Coordinate;
-import vst.graph_visualizer.graph.GraphComponent;
 import vst.graph_visualizer.graph.Vertex;
 
 public class MoveTool extends Tool {
@@ -19,8 +19,8 @@ public class MoveTool extends Tool {
         drag = new Coordinate(0, 0);
     }
 
-    private void onPress(GraphComponent component, Coordinate pos) {
-        if (!(component instanceof Vertex v)) {
+    private void onPress(Node source, Coordinate pos) {
+        if (!(source instanceof Vertex v)) {
             return;
         }
         // problem with dragging outside viewport and panning
@@ -29,16 +29,16 @@ public class MoveTool extends Tool {
         v.setCursor(Cursor.MOVE);
     }
 
-    private void onDrag(GraphComponent component, Coordinate pos) {
-        if (!(component instanceof Vertex v)) {
+    private void onDrag(Node source, Coordinate pos) {
+        if (!(source instanceof Vertex v)) {
             return;
         }
         v.getCenter().xProperty().set(pos.x() - drag.x());
         v.getCenter().yProperty().set(pos.y() - drag.y());
     }
 
-    private void onRelease(GraphComponent component) {
-        if (!(component instanceof Vertex v)) {
+    private void onRelease(Node source) {
+        if (!(source instanceof Vertex v)) {
             return;
         }
         drag.set(0, 0);
