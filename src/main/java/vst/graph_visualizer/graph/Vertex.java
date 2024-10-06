@@ -21,8 +21,6 @@ public class Vertex extends StackPane implements GraphComponent {
     private final Circle circle;
     private final Text text;
 
-    private final BooleanProperty movable;
-
     // x and y are the coordinates of the circle center
     public Vertex(int key, double x, double y) {
         super();
@@ -30,7 +28,6 @@ public class Vertex extends StackPane implements GraphComponent {
         this.key = key;
         this.center = new Coordinate(x, y);
         this.edges = FXCollections.observableSet();
-        this.movable = new SimpleBooleanProperty(false);
 
         this.circle = new Circle(25, Color.WHITE);
         this.getChildren().add(circle);
@@ -41,23 +38,6 @@ public class Vertex extends StackPane implements GraphComponent {
         this.text = new Text(Integer.toString(key));
         this.text.setBoundsType(TextBoundsType.VISUAL);
         this.getChildren().add(text);
-
-        // problem with dragging outside viewport and panning
-        final Coordinate drag = new Coordinate(0, 0);
-        setOnMousePressed(e -> {
-            if (isMovable()) {
-                drag.xProperty().set(getLayoutX() - e.getSceneX());
-                drag.yProperty().set(getLayoutY() - e.getSceneY());
-                setCursor(Cursor.MOVE);
-            }
-        });
-        setOnMouseReleased(e -> setCursor(Cursor.DEFAULT));
-        setOnMouseDragged(e -> {
-            if (isMovable()) {
-                getCenter().xProperty().set(e.getSceneX() + drag.x() + getRadius());
-                getCenter().yProperty().set(e.getSceneY() + drag.y() + getRadius());
-            }
-        });
     }
 
     public int getKey() {
@@ -82,13 +62,5 @@ public class Vertex extends StackPane implements GraphComponent {
 
     public double getRadius() {
         return circle.getRadius();
-    }
-
-    public boolean isMovable() {
-        return movable.get();
-    }
-
-    public BooleanProperty movableProperty() {
-        return movable;
     }
 }

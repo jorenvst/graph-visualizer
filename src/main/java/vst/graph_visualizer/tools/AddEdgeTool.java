@@ -1,15 +1,16 @@
 package vst.graph_visualizer.tools;
 
+import javafx.scene.input.MouseEvent;
 import vst.graph_visualizer.graph.*;
 
 public class AddEdgeTool extends Tool {
 
     public AddEdgeTool() {
         super("/vst/sidebar/line.png", "add edge");
+        events.put(MouseEvent.MOUSE_CLICKED, g -> c -> p -> onClick(g, c));
     }
 
-    @Override
-    public void apply(Graph graph, GraphComponent component, Coordinate pos) {
+    private void onClick(Graph graph, GraphComponent component) {
         if (component == null || component instanceof Edge) {
             return;
         }

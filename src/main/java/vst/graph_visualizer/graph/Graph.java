@@ -18,7 +18,6 @@ public class Graph extends Pane {
 
     private final ObservableList<Vertex> selectedVertices;
 
-    private final BooleanProperty movable;
 
     public Graph() {
         this.vertices = FXCollections.observableSet();
@@ -26,7 +25,6 @@ public class Graph extends Pane {
 
         this.selectedVertices = FXCollections.observableArrayList();
 
-        this.movable = new SimpleBooleanProperty(false);
 
         vertices.addListener((SetChangeListener<? super Vertex>) this::updateVertices);
         edges.addListener((SetChangeListener<? super Edge>) this::updateEdges);
@@ -37,7 +35,6 @@ public class Graph extends Pane {
         if (change.wasAdded()) {
             vertex = change.getElementAdded();
             this.getChildren().add(vertex);
-            vertex.movableProperty().bind(movableProperty());
         } else if (change.wasRemoved()) {
             vertex = change.getElementRemoved();
             this.getChildren().remove(vertex);
@@ -114,17 +111,5 @@ public class Graph extends Pane {
 
     public Vertex getSelectedVertex(int i) {
         return selectedVertices.get(i);
-    }
-
-    public boolean isMovable() {
-        return movable.get();
-    }
-
-    public BooleanProperty movableProperty() {
-        return movable;
-    }
-
-    public void setMovable(boolean movable) {
-        this.movable.set(movable);
     }
 }

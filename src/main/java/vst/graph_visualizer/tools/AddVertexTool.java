@@ -1,5 +1,6 @@
 package vst.graph_visualizer.tools;
 
+import javafx.scene.input.MouseEvent;
 import vst.graph_visualizer.dialog.KeyDialog;
 import vst.graph_visualizer.graph.Coordinate;
 import vst.graph_visualizer.graph.Graph;
@@ -10,10 +11,10 @@ public class AddVertexTool extends Tool {
 
     public AddVertexTool() {
         super("/vst/sidebar/plus.png", "add vertex");
+        events.put(MouseEvent.MOUSE_CLICKED, g -> c -> p -> onClick(g, c, p));
     }
 
-    @Override
-    public void apply(Graph graph, GraphComponent component, Coordinate pos) {
+    private void onClick(Graph graph, GraphComponent component, Coordinate pos) {
         if (component != null) {
             return;
         }

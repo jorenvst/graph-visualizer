@@ -1,11 +1,13 @@
 package vst.graph_visualizer;
 
 import javafx.application.Application;
+import javafx.beans.binding.Bindings;
 import javafx.collections.SetChangeListener;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -16,6 +18,9 @@ import vst.graph_visualizer.graph.Vertex;
 import vst.graph_visualizer.tools.*;
 
 import java.util.List;
+
+import static vst.graph_visualizer.Sizes.MENU_BAR_HEIGHT;
+import static vst.graph_visualizer.Sizes.TOOL_BAR_WIDTH;
 
 // TODO: Ctrl-Z feature
 public class Main extends Application {
@@ -46,22 +51,23 @@ public class Main extends Application {
         graph.getVertices().addListener((SetChangeListener<Vertex>) change -> {
             if (change.wasAdded()) {
                 Vertex v = change.getElementAdded();
-                v.setOnMouseClicked(e -> ((Tool)toggleGroup.getSelectedToggle()).apply(graph, v, new Coordinate(e.getX(), e.getY())));
+                v.addEventFilter(MouseEvent.ANY, e -> ((Tool)toggleGroup.getSelectedToggle()).apply(e, graph, v, new Coordinate(e.getSceneX() - TOOL_BAR_WIDTH, e.getSceneY() - MENU_BAR_HEIGHT)));
             }
         });
         graph.getEdges().addListener((SetChangeListener<Edge>) change -> {
             if (change.wasAdded()) {
                 Edge edge = change.getElementAdded();
-                edge.setOnMouseClicked(e -> ((Tool)toggleGroup.getSelectedToggle()).apply(graph, edge, new Coordinate(e.getX(), e.getY())));
+                edge.addEventFilter(MouseEvent.ANY, e -> ((Tool)toggleGroup.getSelectedToggle()).apply(e, graph, edge, new Coordinate(e.getSceneX() - TOOL_BAR_WIDTH, e.getSceneY() - MENU_BAR_HEIGHT)));
             }
         });
 
         ScrollPane pane = new ScrollPane();
-        pane.pannableProperty().bind(graph.movableProperty().not());
+        // TODO
+        pane.pannableProperty().bind(Bindings.createBooleanBinding(() -> toggleGroup.getSelectedToggle() instanceof MoveTool));
         pane.setContent(graph);
         root.setCenter(pane);
 
-        pane.setOnMouseClicked(e -> ((Tool)toggleGroup.getSelectedToggle()).apply(graph, null, new Coordinate(e.getX(), e.getY())));
+        pane.addEventFilter(MouseEvent.ANY, e -> ((Tool)toggleGroup.getSelectedToggle()).apply(e, graph, null, new Coordinate(e.getSceneX() - TOOL_BAR_WIDTH, e.getSceneY() - MENU_BAR_HEIGHT)));
     }
 
     private void initMenu() {
@@ -70,6 +76,7 @@ public class Main extends Application {
         MenuItem importFile = new MenuItem("import");
         fileMenu.getItems().addAll(exportFile, importFile);
         MenuBar menuBar = new MenuBar(fileMenu);
+        menuBar.setPrefHeight(MENU_BAR_HEIGHT);
         root.setTop(menuBar);
     }
 
@@ -84,12 +91,12 @@ public class Main extends Application {
             if (n == null) {
                 o.setSelected(true);
             }
-            graph.setMovable(n instanceof MoveTool t);
         });
 
         ToolBar toolBar = new ToolBar();
         toolBar.setOrientation(Orientation.VERTICAL);
         toolBar.getItems().addAll(tools);
+        toolBar.setPrefWidth(TOOL_BAR_WIDTH);
 
         VBox toolBarWrapper = new VBox();
         toolBarWrapper.setAlignment(Pos.CENTER);

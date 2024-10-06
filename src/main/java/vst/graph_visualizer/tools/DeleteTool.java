@@ -1,6 +1,6 @@
 package vst.graph_visualizer.tools;
 
-import vst.graph_visualizer.graph.Coordinate;
+import javafx.scene.input.MouseEvent;
 import vst.graph_visualizer.graph.Graph;
 import vst.graph_visualizer.graph.GraphComponent;
 
@@ -8,10 +8,10 @@ public class DeleteTool extends Tool {
 
     public DeleteTool() {
         super("/vst/sidebar/trash.png", "delete vertex/edge");
+        events.put(MouseEvent.MOUSE_CLICKED, g -> c -> p -> onClick(g, c));
     }
 
-    @Override
-    public void apply(Graph graph, GraphComponent component, Coordinate pos) {
+    private void onClick(Graph graph, GraphComponent component) {
         graph.removeComponent(component);
     }
 }

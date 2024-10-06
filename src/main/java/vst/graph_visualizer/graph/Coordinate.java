@@ -29,6 +29,11 @@ public class Coordinate {
         return y;
     }
 
+    public void set(double x, double y) {
+        this.x.set(x);
+        this.y.set(y);
+    }
+
     @Override
     public String toString() {
         return "(" + x.get() + ", " + y.get() + ")";
