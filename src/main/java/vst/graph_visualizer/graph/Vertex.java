@@ -1,18 +1,14 @@
 package vst.graph_visualizer.graph;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
-import javafx.scene.Cursor;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextBoundsType;
 
-public class Vertex extends StackPane implements GraphComponent {
+public class Vertex extends StackPane {
 
     private final int key;
     private final Coordinate center;

@@ -2,7 +2,7 @@ package vst.graph_visualizer.graph;
 
 import javafx.scene.shape.Line;
 
-public class Edge extends Line implements GraphComponent {
+public class Edge extends Line {
 
     private final Vertex v1;
     private final Vertex v2;
