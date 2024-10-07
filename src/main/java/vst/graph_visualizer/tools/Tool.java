@@ -22,9 +22,11 @@ public abstract class Tool extends ToggleButton {
     public void apply(MouseEvent event, Graph graph, GraphPane pane, Coordinate pos) {
 
     }
+
     public void apply(MouseEvent event, Graph graph, Vertex vertex, Coordinate pos) {
 
     }
+
     public void apply(MouseEvent event, Graph graph, Edge edge, Coordinate pos) {
 
     }

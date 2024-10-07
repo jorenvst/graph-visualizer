@@ -13,6 +13,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import vst.graph_visualizer.graph.*;
+import vst.graph_visualizer.menu.GraphMenuBar;
 import vst.graph_visualizer.tools.*;
 
 import java.util.List;
@@ -59,23 +60,14 @@ public class Main extends Application {
             }
         });
 
-        GraphPane pane = new GraphPane();
-        // TODO
-        pane.pannableProperty().bind(Bindings.createBooleanBinding(() -> toggleGroup.getSelectedToggle() instanceof MoveTool));
-        pane.setContent(graph);
+        GraphPane pane = new GraphPane(graph);
         root.setCenter(pane);
 
         pane.addEventFilter(MouseEvent.ANY, e -> ((Tool)toggleGroup.getSelectedToggle()).apply(e, graph, pane, new Coordinate(e.getSceneX() - TOOL_BAR_WIDTH, e.getSceneY() - MENU_BAR_HEIGHT)));
     }
 
     private void initMenu() {
-        Menu fileMenu = new Menu("File");
-        MenuItem exportFile = new MenuItem("export");
-        MenuItem importFile = new MenuItem("import");
-        fileMenu.getItems().addAll(exportFile, importFile);
-        MenuBar menuBar = new MenuBar(fileMenu);
-        menuBar.setPrefHeight(MENU_BAR_HEIGHT);
-        root.setTop(menuBar);
+        root.setTop(new GraphMenuBar());
     }
 
     private void initToolBar() {
