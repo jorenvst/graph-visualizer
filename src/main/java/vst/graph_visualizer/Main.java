@@ -1,11 +1,9 @@
 package vst.graph_visualizer;
 
 import javafx.application.Application;
-import javafx.beans.binding.Bindings;
 import javafx.collections.SetChangeListener;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
@@ -13,6 +11,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import vst.graph_visualizer.graph.*;
+import vst.graph_visualizer.io.GraphIO;
 import vst.graph_visualizer.menu.GraphMenuBar;
 import vst.graph_visualizer.tools.*;
 
@@ -26,8 +25,10 @@ public class Main extends Application {
 
     private BorderPane root;
 
-    private Graph graph;
+    private GraphPane pane;
     private ToggleGroup toggleGroup;
+
+    private GraphMenuBar menuBar;
 
     @Override
     public void start(Stage stage) {
@@ -45,32 +46,36 @@ public class Main extends Application {
     }
 
     private void initGraph() {
-        graph = new Graph();
+        Graph graph = new Graph();
 
         graph.getVertices().addListener((SetChangeListener<Vertex>) change -> {
             if (change.wasAdded()) {
                 Vertex vertex = change.getElementAdded();
-                vertex.addEventFilter(MouseEvent.ANY, e -> ((Tool)toggleGroup.getSelectedToggle()).apply(e, graph, vertex, new Coordinate(e.getSceneX() - TOOL_BAR_WIDTH, e.getSceneY() - MENU_BAR_HEIGHT)));
+                vertex.addEventFilter(MouseEvent.ANY, e -> ((Tool)toggleGroup.getSelectedToggle()).apply(e, pane.getGraph(), vertex, new Coordinate(e.getSceneX() - TOOL_BAR_WIDTH, e.getSceneY() - MENU_BAR_HEIGHT)));
             }
         });
         graph.getEdges().addListener((SetChangeListener<Edge>) change -> {
             if (change.wasAdded()) {
                 Edge edge = change.getElementAdded();
-                edge.addEventFilter(MouseEvent.ANY, e -> ((Tool)toggleGroup.getSelectedToggle()).apply(e, graph, edge, new Coordinate(e.getSceneX() - TOOL_BAR_WIDTH, e.getSceneY() - MENU_BAR_HEIGHT)));
+                edge.addEventFilter(MouseEvent.ANY, e -> ((Tool)toggleGroup.getSelectedToggle()).apply(e, pane.getGraph(), edge, new Coordinate(e.getSceneX() - TOOL_BAR_WIDTH, e.getSceneY() - MENU_BAR_HEIGHT)));
             }
         });
 
-        GraphPane pane = new GraphPane(graph);
+        pane = new GraphPane(graph);
         root.setCenter(pane);
 
-        pane.addEventFilter(MouseEvent.ANY, e -> ((Tool)toggleGroup.getSelectedToggle()).apply(e, graph, pane, new Coordinate(e.getSceneX() - TOOL_BAR_WIDTH, e.getSceneY() - MENU_BAR_HEIGHT)));
+        pane.addEventFilter(MouseEvent.ANY, e -> ((Tool)toggleGroup.getSelectedToggle()).apply(e, pane.getGraph(), pane, new Coordinate(e.getSceneX() - TOOL_BAR_WIDTH, e.getSceneY() - MENU_BAR_HEIGHT)));
     }
 
     private void initMenu() {
-        root.setTop(new GraphMenuBar());
+        menuBar = new GraphMenuBar();
+        menuBar.getExportFile().setOnAction(e -> GraphIO.exportGraph(pane.getGraph()));
+        menuBar.getImportFile().setOnAction(e -> pane.setGraph(GraphIO.importGraph(pane)));
+        root.setTop(menuBar);
     }
 
     private void initToolBar() {
+        // TODO: extract class
         List<Tool> tools = List.of(new AddVertexTool(), new AddEdgeTool(), new MoveTool(), new DeleteTool());
 
         toggleGroup = new ToggleGroup();
