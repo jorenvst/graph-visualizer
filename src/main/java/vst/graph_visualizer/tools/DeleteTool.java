@@ -1,5 +1,6 @@
 package vst.graph_visualizer.tools;
 
+import javafx.event.EventType;
 import javafx.scene.input.MouseEvent;
 import vst.graph_visualizer.graph.Coordinate;
 import vst.graph_visualizer.graph.Edge;
@@ -13,15 +14,15 @@ public class DeleteTool extends Tool {
     }
 
     @Override
-    public void apply(MouseEvent event, Graph graph, Vertex vertex, Coordinate pos) {
-        if (event.getEventType() == MouseEvent.MOUSE_CLICKED) {
+    public void apply(EventType<? extends MouseEvent> eventType, Graph graph, Vertex vertex, Coordinate pos) {
+        if (eventType == MouseEvent.MOUSE_CLICKED) {
             graph.removeVertex(vertex);
         }
     }
 
     @Override
-    public void apply(MouseEvent event, Graph graph, Edge edge, Coordinate pos) {
-        if (event.getEventType() == MouseEvent.MOUSE_CLICKED) {
+    public void apply(EventType<? extends MouseEvent> eventType, Graph graph, Edge edge, Coordinate pos) {
+        if (eventType == MouseEvent.MOUSE_CLICKED) {
             graph.removeEdge(edge);
         }
     }

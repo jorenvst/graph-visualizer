@@ -1,5 +1,6 @@
 package vst.graph_visualizer.tools;
 
+import javafx.event.EventType;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
@@ -19,15 +20,15 @@ public abstract class Tool extends ToggleButton {
         setGraphic(imageView);
     }
 
-    public void apply(MouseEvent event, Graph graph, GraphPane pane, Coordinate pos) {
+    public void apply(EventType<? extends MouseEvent> eventType, Graph graph, GraphPane pane, Coordinate pos) {
 
     }
 
-    public void apply(MouseEvent event, Graph graph, Vertex vertex, Coordinate pos) {
+    public void apply(EventType<? extends MouseEvent> eventType, Graph graph, Vertex vertex, Coordinate pos) {
 
     }
 
-    public void apply(MouseEvent event, Graph graph, Edge edge, Coordinate pos) {
+    public void apply(EventType<? extends MouseEvent> eventType, Graph graph, Edge edge, Coordinate pos) {
 
     }
 }

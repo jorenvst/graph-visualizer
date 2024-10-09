@@ -1,5 +1,6 @@
 package vst.graph_visualizer.tools;
 
+import javafx.event.EventType;
 import javafx.scene.Cursor;
 import javafx.scene.input.MouseEvent;
 import vst.graph_visualizer.graph.Coordinate;
@@ -17,15 +18,15 @@ public class MoveTool extends Tool {
 
     // TODO: avoid if statements
     @Override
-    public void apply(MouseEvent event, Graph graph, Vertex vertex, Coordinate pos) {
-        if (event.getEventType() == MouseEvent.MOUSE_PRESSED) {
+    public void apply(EventType<? extends MouseEvent> eventType, Graph graph, Vertex vertex, Coordinate pos) {
+        if (eventType == MouseEvent.MOUSE_PRESSED) {
             drag.xProperty().set(pos.x() - vertex.getCenter().x());
             drag.yProperty().set(pos.y() - vertex.getCenter().y());
             vertex.setCursor(Cursor.MOVE);
-        } else if (event.getEventType() == MouseEvent.MOUSE_DRAGGED) {
+        } else if (eventType == MouseEvent.MOUSE_DRAGGED) {
             vertex.getCenter().xProperty().set(pos.x() - drag.x());
             vertex.getCenter().yProperty().set(pos.y() - drag.y());
-        } else if (event.getEventType() == MouseEvent.MOUSE_RELEASED) {
+        } else if (eventType == MouseEvent.MOUSE_RELEASED) {
             drag.set(0, 0);
             vertex.setCursor(Cursor.DEFAULT);
         }

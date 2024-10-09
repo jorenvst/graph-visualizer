@@ -51,20 +51,20 @@ public class Main extends Application {
         graph.getVertices().addListener((SetChangeListener<Vertex>) change -> {
             if (change.wasAdded()) {
                 Vertex vertex = change.getElementAdded();
-                vertex.addEventFilter(MouseEvent.ANY, e -> ((Tool)toggleGroup.getSelectedToggle()).apply(e, pane.getGraph(), vertex, new Coordinate(e.getSceneX() - TOOL_BAR_WIDTH, e.getSceneY() - MENU_BAR_HEIGHT)));
+                vertex.addEventFilter(MouseEvent.ANY, e -> ((Tool)toggleGroup.getSelectedToggle()).apply(e.getEventType(), pane.getGraph(), vertex, new Coordinate(e.getSceneX() - TOOL_BAR_WIDTH, e.getSceneY() - MENU_BAR_HEIGHT)));
             }
         });
         graph.getEdges().addListener((SetChangeListener<Edge>) change -> {
             if (change.wasAdded()) {
                 Edge edge = change.getElementAdded();
-                edge.addEventFilter(MouseEvent.ANY, e -> ((Tool)toggleGroup.getSelectedToggle()).apply(e, pane.getGraph(), edge, new Coordinate(e.getSceneX() - TOOL_BAR_WIDTH, e.getSceneY() - MENU_BAR_HEIGHT)));
+                edge.addEventFilter(MouseEvent.ANY, e -> ((Tool)toggleGroup.getSelectedToggle()).apply(e.getEventType(), pane.getGraph(), edge, new Coordinate(e.getSceneX() - TOOL_BAR_WIDTH, e.getSceneY() - MENU_BAR_HEIGHT)));
             }
         });
 
         pane = new GraphPane(graph);
         root.setCenter(pane);
 
-        pane.addEventFilter(MouseEvent.ANY, e -> ((Tool)toggleGroup.getSelectedToggle()).apply(e, pane.getGraph(), pane, new Coordinate(e.getSceneX() - TOOL_BAR_WIDTH, e.getSceneY() - MENU_BAR_HEIGHT)));
+        pane.addEventFilter(MouseEvent.ANY, e -> ((Tool)toggleGroup.getSelectedToggle()).apply(e.getEventType(), pane.getGraph(), pane, new Coordinate(e.getSceneX() - TOOL_BAR_WIDTH, e.getSceneY() - MENU_BAR_HEIGHT)));
     }
 
     private void initMenu() {
