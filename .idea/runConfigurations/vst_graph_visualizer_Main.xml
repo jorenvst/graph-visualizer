@@ -1,0 +1,15 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="vst.graph_visualizer.Main" type="Application" factoryName="Application" nameIsGenerated="true">
+    <option name="MAIN_CLASS_NAME" value="vst.graph_visualizer.Main" />
+    <module name="TreeVisualizer" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="vst.treevisualizer.treevisualizer.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

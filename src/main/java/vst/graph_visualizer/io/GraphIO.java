@@ -14,6 +14,7 @@ import vst.graph_visualizer.io.serializer.EdgeSerializer;
 import vst.graph_visualizer.io.serializer.GraphSerializer;
 import vst.graph_visualizer.io.serializer.VertexSerializer;
 
+import java.io.File;
 import java.io.IOException;
 
 public class GraphIO {
@@ -28,7 +29,11 @@ public class GraphIO {
             module.addSerializer(Edge.class, new EdgeSerializer());
             mapper.registerModule(module);
 
-            mapper.writeValue(new FileChooser().showSaveDialog(graph.getScene().getWindow()), graph);
+            FileChooser chooser = new FileChooser();
+            File file = chooser.showSaveDialog(graph.getScene().getWindow());
+            if (file != null) {
+            mapper.writeValue(file, graph);
+            }
         } catch (IOException e) {
             throw new RuntimeException("could not export", e);
         }
