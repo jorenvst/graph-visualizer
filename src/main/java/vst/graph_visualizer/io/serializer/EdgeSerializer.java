@@ -16,8 +16,8 @@ public class EdgeSerializer extends StdSerializer<Edge> {
     @Override
     public void serialize(Edge edge, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         jsonGenerator.writeStartObject();
-        jsonGenerator.writeNumberField("v1", edge.v1().getKey());
-        jsonGenerator.writeNumberField("v2", edge.v2().getKey());
+        jsonGenerator.writeNumberField("key1", edge.v1().getKey());
+        jsonGenerator.writeNumberField("key2", edge.v2().getKey());
         jsonGenerator.writeEndObject();
     }
 }

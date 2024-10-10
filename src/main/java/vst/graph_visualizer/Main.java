@@ -37,7 +37,7 @@ public class Main extends Application {
 
         initMenu();
         initToolBar();
-        initGraph();
+        initGraph(new Graph());
 
         Scene scene = new Scene(root,800, 600);
         stage.setTitle("Graph Visualizer");
@@ -45,8 +45,10 @@ public class Main extends Application {
         stage.show();
     }
 
-    private void initGraph() {
-        Graph graph = new Graph();
+    private void initGraph(Graph graph) {
+
+        graph.getVertices().forEach(vertex -> vertex.addEventFilter(MouseEvent.ANY, e -> ((Tool)toggleGroup.getSelectedToggle()).apply(e.getEventType(), pane.getGraph(), vertex, new Coordinate(e.getSceneX() - TOOL_BAR_WIDTH, e.getSceneY() - MENU_BAR_HEIGHT))));
+        graph.getEdges().forEach(edge -> edge.addEventFilter(MouseEvent.ANY, e -> ((Tool)toggleGroup.getSelectedToggle()).apply(e.getEventType(), pane.getGraph(), edge, new Coordinate(e.getSceneX() - TOOL_BAR_WIDTH, e.getSceneY() - MENU_BAR_HEIGHT))));
 
         graph.getVertices().addListener((SetChangeListener<Vertex>) change -> {
             if (change.wasAdded()) {
@@ -70,7 +72,7 @@ public class Main extends Application {
     private void initMenu() {
         menuBar = new GraphMenuBar();
         menuBar.getExportFile().setOnAction(e -> GraphIO.exportGraph(pane.getGraph()));
-        menuBar.getImportFile().setOnAction(e -> pane.setGraph(GraphIO.importGraph(pane)));
+        menuBar.getImportFile().setOnAction(e -> initGraph(GraphIO.importGraph(pane)));
         root.setTop(menuBar);
     }
 

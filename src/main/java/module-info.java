@@ -12,4 +12,5 @@ module vst.treevisualizer {
     exports vst.graph_visualizer;
     exports vst.graph_visualizer.tools;
     opens vst.graph_visualizer.tools to javafx.fxml;
+    exports vst.graph_visualizer.io.deserializer to com.fasterxml.jackson.databind;
 }

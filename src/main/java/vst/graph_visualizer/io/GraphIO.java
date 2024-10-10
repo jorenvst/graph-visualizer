@@ -7,9 +7,9 @@ import vst.graph_visualizer.graph.Edge;
 import vst.graph_visualizer.graph.Graph;
 import vst.graph_visualizer.graph.GraphPane;
 import vst.graph_visualizer.graph.Vertex;
-import vst.graph_visualizer.io.deserializer.EdgeDeserializer;
-import vst.graph_visualizer.io.deserializer.GraphDeserializer;
-import vst.graph_visualizer.io.deserializer.VertexDeserializer;
+import vst.graph_visualizer.io.deserializer.DeserializedEdge;
+import vst.graph_visualizer.io.deserializer.DeserializedGraph;
+import vst.graph_visualizer.io.deserializer.DeserializedVertex;
 import vst.graph_visualizer.io.serializer.EdgeSerializer;
 import vst.graph_visualizer.io.serializer.GraphSerializer;
 import vst.graph_visualizer.io.serializer.VertexSerializer;
@@ -43,15 +43,24 @@ public class GraphIO {
         try {
             ObjectMapper mapper = new ObjectMapper();
 
-            SimpleModule module = new SimpleModule();
-            module.addDeserializer(Graph.class, new GraphDeserializer());
-            module.addDeserializer(Vertex.class, new VertexDeserializer());
-            module.addDeserializer(Edge.class, new EdgeDeserializer());
-            mapper.registerModule(module);
-
             FileChooser chooser = new FileChooser();
             chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json"));
-            return mapper.readValue(chooser.showOpenDialog(pane.getScene().getWindow()), Graph.class);
+            DeserializedGraph deserializedGraph = mapper.readValue(chooser.showOpenDialog(pane.getScene().getWindow()), DeserializedGraph.class);
+
+            Graph graph = new Graph();
+
+            for(DeserializedVertex v : deserializedGraph.vertices()) {
+                graph.addVertex(new Vertex(v.key(), v.x(), v.y()));
+            }
+
+            for(DeserializedEdge e : deserializedGraph.edges()) {
+                graph.addEdge(new Edge(
+                        graph.getVertices().stream().filter(v -> v.getKey() == e.key1()).toList().getFirst(),
+                        graph.getVertices().stream().filter(v -> v.getKey() == e.key2()).toList().getFirst())
+                );
+            }
+
+            return graph;
         } catch (IOException e) {
             throw new RuntimeException("could not import", e);
         }
